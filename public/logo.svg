@@ -1,0 +1,18 @@
+<svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="60" cy="60" r="60" fill="url(#gradient)" />
+  
+  <path d="M60 0V60H0C0 26.8629 26.8629 0 60 0Z" fill="#775732" />
+  <path d="M120 60V120H60C60 86.8629 86.8629 60 120 60Z" fill="#775732" />
+  <path d="M60 120V60H120C120 93.1371 93.1371 120 60 120Z" fill="#775732" />
+  <path d="M0 60V0H60C60 33.1371 33.1371 60 0 60Z" fill="#775732" />
+  
+  <circle cx="60" cy="60" r="20" fill="#CA9352" />
+  <path d="M60 40L70 50L60 60L50 50L60 40Z" fill="#FFFFFF" />
+  
+  <defs>
+    <linearGradient id="gradient" x1="0" y1="0" x2="120" y2="120" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#775732" />
+      <stop offset="100%" stop-color="#CA9352" />
+    </linearGradient>
+  </defs>
+</svg>

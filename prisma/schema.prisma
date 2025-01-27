@@ -1,0 +1,45 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider     = "postgresql"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
+}
+
+model Car {
+  id           String   @id @default(uuid())
+  userId       String
+  name         String
+  cv           String
+  transmission String
+  people       String
+  photo        String
+  priceDay     Decimal  @db.Decimal(10,2)
+  engine       String
+  type         String
+  isPublish    Boolean  @default(false)
+  orders       Order[]
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@map("cars") // Nombre de tabla explícito en PostgreSQL
+}
+
+model Order {
+  id           String   @id @default(uuid())
+  carId        String
+  car          Car      @relation(fields: [carId], references: [id], onDelete: Cascade)
+  userId       String
+  orderDate    DateTime @default(now())
+  orderEndDate DateTime
+  status       String   @default("pending")
+  totalAmount  Decimal  @db.Decimal(10,2)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([carId])
+  @@index([userId])
+  @@map("orders") // Nombre de tabla explícito en PostgreSQL
+}

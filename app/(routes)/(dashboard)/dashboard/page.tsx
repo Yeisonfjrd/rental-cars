@@ -12,7 +12,7 @@ export default async function DashboardPage() {
 
   const cars = await db.car.findMany({
     where: {
-      isPublish: true,
+      isPublished: true,
     },
     orderBy: {
       createdAt: "desc",

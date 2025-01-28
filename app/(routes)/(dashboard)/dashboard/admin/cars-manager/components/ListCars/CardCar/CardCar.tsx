@@ -67,7 +67,7 @@ export function CardCar(props: CardCarProps) {
       <div className="relative p-3">
         <div className="flex flex-col mb-3 gap-x-4">
           <p className="text-xl min-h-16 lg:min-h-fit">{car.name}</p>
-          <p>{car.priceDay}€ /día</p>
+          <p>{car.priceDay}$ /day</p>
         </div>
 
         <div className="grid md:grid-cols-2 gap-x-4">

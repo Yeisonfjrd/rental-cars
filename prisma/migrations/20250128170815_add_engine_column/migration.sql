@@ -3,16 +3,16 @@ CREATE TABLE "cars" (
     "id" TEXT NOT NULL,
     "userId" TEXT NOT NULL,
     "name" TEXT NOT NULL,
-    "cv" TEXT NOT NULL,
+    "cv" INTEGER NOT NULL,
     "transmission" TEXT NOT NULL,
-    "people" TEXT NOT NULL,
+    "people" INTEGER NOT NULL,
     "photo" TEXT NOT NULL,
     "priceDay" DECIMAL(10,2) NOT NULL,
-    "engine" TEXT NOT NULL,
     "type" TEXT NOT NULL,
     "isPublish" BOOLEAN NOT NULL DEFAULT false,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
+    "engine" TEXT,
 
     CONSTRAINT "cars_pkey" PRIMARY KEY ("id")
 );

@@ -12,34 +12,34 @@ model Car {
   id           String   @id @default(uuid())
   userId       String
   name         String
-  cv           String
+  cv           Int
   transmission String
-  people       String
+  people       Int
   photo        String
-  priceDay     Decimal  @db.Decimal(10,2)
-  engine       String
+  priceDay     Decimal  @db.Decimal(10, 2)
   type         String
   isPublish    Boolean  @default(false)
-  orders       Order[]
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
+  engine       String?
+  orders       Order[]
 
-  @@map("cars") // Nombre de tabla explícito en PostgreSQL
+  @@map("cars")
 }
 
 model Order {
   id           String   @id @default(uuid())
   carId        String
-  car          Car      @relation(fields: [carId], references: [id], onDelete: Cascade)
   userId       String
   orderDate    DateTime @default(now())
   orderEndDate DateTime
   status       String   @default("pending")
-  totalAmount  Decimal  @db.Decimal(10,2)
+  totalAmount  Decimal  @db.Decimal(10, 2)
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
+  car          Car      @relation(fields: [carId], references: [id], onDelete: Cascade)
 
   @@index([carId])
   @@index([userId])
-  @@map("orders") // Nombre de tabla explícito en PostgreSQL
+  @@map("orders")
 }

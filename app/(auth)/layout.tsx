@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Image from "next/image";
 
 export default function AuthLayout({
@@ -15,9 +16,9 @@ export default function AuthLayout({
             {children}
             <p className="text-center text-[#2C2C2C] mt-4">
               ¿No tienes una cuenta?{" "}
-              <a href="/sign-up" className="text-[#CA9352] hover:text-[#D4AF37] font-semibold">
+              <Link href="/sign-up" className="text-[#CA9352] hover:text-[#D4AF37] font-semibold">
                 Regístrate y obtén un 10% de descuento.
-              </a>
+              </Link>
             </p>
           </div>
         </div>

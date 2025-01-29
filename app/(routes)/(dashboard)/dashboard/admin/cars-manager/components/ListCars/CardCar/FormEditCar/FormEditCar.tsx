@@ -25,10 +25,9 @@ import {
 } from "@/components/ui/select";
 import { UploadButton } from "@/utils/uploadthing";
 import { useState } from "react";
+import { FormEditCarProps } from "./FormEditCar.types";
 import { toast } from "@/components/ui/use-toast";
 import { useRouter } from "next/navigation";
-
-import { FormEditCarProps } from "./FormEditCar.types";
 
 export function FormEditCar(props: FormEditCarProps) {
   const { carData, setOpenDialog } = props;
@@ -55,12 +54,11 @@ export function FormEditCar(props: FormEditCarProps) {
 
     try {
       await axios.patch(`/api/car/${carData.id}/form`, values);
-      toast({ title: "Car edited ✌🏽" });
+      toast({ title: "Coche editado ✌🏽" });
       router.refresh();
-    } catch (err) {
+    } catch (error) {
       toast({
-        title: "Something went wrong",
-        description: err instanceof Error ? err.message : "Please try again later",
+        title: "Algo salió mal",
         variant: "destructive",
       });
     }
@@ -77,9 +75,13 @@ export function FormEditCar(props: FormEditCarProps) {
             name="name"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Car Name</FormLabel>
+                <FormLabel className="text-xl text-[#CA9352]">Nombre del coche</FormLabel>
                 <FormControl>
-                  <Input placeholder="Tesla Model S Plaid" {...field} />
+                  <Input
+                    placeholder="Tesla Model S Plaid"
+                    {...field}
+                    className="border-[#CA9352] bg-gray-900 text-white placeholder-[#CA9352] focus:ring-2 focus:ring-[#CA9352] rounded-lg"
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -90,9 +92,14 @@ export function FormEditCar(props: FormEditCarProps) {
             name="cv"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Power</FormLabel>
+                <FormLabel className="text-xl text-[#CA9352]">Potencia</FormLabel>
                 <FormControl>
-                  <Input placeholder="150 CV" type="number" {...field} />
+                  <Input
+                    placeholder="150 CV"
+                    type="number"
+                    {...field}
+                    className="border-[#CA9352] bg-gray-900 text-white placeholder-[#CA9352] focus:ring-2 focus:ring-[#CA9352] rounded-lg"
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -103,19 +110,16 @@ export function FormEditCar(props: FormEditCarProps) {
             name="transmission"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Transmission</FormLabel>
-                <Select
-                  onValueChange={field.onChange}
-                  defaultValue={field.value}
-                >
+                <FormLabel className="text-xl text-[#CA9352]">Transmisión</FormLabel>
+                <Select onValueChange={field.onChange} defaultValue={field.value}>
                   <FormControl>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select the type of car" />
+                    <SelectTrigger className="bg-gray-800 text-white border-2 border-[#CA9352] focus:ring-2 focus:ring-[#CA9352] hover:bg-[#CA9352]/10 rounded-lg">
+                      <SelectValue placeholder="Selecciona el tipo de transmisión" />
                     </SelectTrigger>
                   </FormControl>
-                  <SelectContent>
+                  <SelectContent className="bg-gray-800 border-2 border-[#CA9352] rounded-lg">
                     <SelectItem value="manual">Manual</SelectItem>
-                    <SelectItem value="automatic">Automático</SelectItem>
+                    <SelectItem value="automatic">Automática</SelectItem>
                   </SelectContent>
                 </Select>
                 <FormMessage />
@@ -127,17 +131,14 @@ export function FormEditCar(props: FormEditCarProps) {
             name="people"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>People</FormLabel>
-                <Select
-                  onValueChange={field.onChange}
-                  defaultValue={field.value}
-                >
+                <FormLabel className="text-xl text-[#CA9352]">Personas</FormLabel>
+                <Select onValueChange={field.onChange} defaultValue={field.value}>
                   <FormControl>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select the quantity of people" />
+                    <SelectTrigger className="bg-gray-800 text-white border-2 border-[#CA9352] focus:ring-2 focus:ring-[#CA9352] hover:bg-[#CA9352]/10 rounded-lg">
+                      <SelectValue placeholder="Selecciona la cantidad de personas" />
                     </SelectTrigger>
                   </FormControl>
-                  <SelectContent>
+                  <SelectContent className="bg-gray-800 border-2 border-[#CA9352] rounded-lg">
                     <SelectItem value="2">2</SelectItem>
                     <SelectItem value="4">4</SelectItem>
                     <SelectItem value="5">5</SelectItem>
@@ -153,19 +154,16 @@ export function FormEditCar(props: FormEditCarProps) {
             name="engine"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Engine</FormLabel>
-                <Select
-                  onValueChange={field.onChange}
-                  defaultValue={field.value}
-                >
+                <FormLabel className="text-xl text-[#CA9352]">Motor</FormLabel>
+                <Select onValueChange={field.onChange} defaultValue={field.value}>
                   <FormControl>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select the engine of the car" />
+                    <SelectTrigger className="bg-gray-800 text-white border-2 border-[#CA9352] focus:ring-2 focus:ring-[#CA9352] hover:bg-[#CA9352]/10 rounded-lg">
+                      <SelectValue placeholder="Selecciona el motor del coche" />
                     </SelectTrigger>
                   </FormControl>
-                  <SelectContent>
+                  <SelectContent className="bg-gray-800 border-2 border-[#CA9352] rounded-lg">
                     <SelectItem value="gasoil">Gasolina</SelectItem>
-                    <SelectItem value="diesel">Diesel</SelectItem>
+                    <SelectItem value="diesel">Diésel</SelectItem>
                     <SelectItem value="electric">Eléctrico</SelectItem>
                     <SelectItem value="hybrid">Híbrido</SelectItem>
                   </SelectContent>
@@ -179,22 +177,19 @@ export function FormEditCar(props: FormEditCarProps) {
             name="type"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Type</FormLabel>
-                <Select
-                  onValueChange={field.onChange}
-                  defaultValue={field.value}
-                >
+                <FormLabel className="text-xl text-[#CA9352]">Tipo</FormLabel>
+                <Select onValueChange={field.onChange} defaultValue={field.value}>
                   <FormControl>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select the type of car" />
+                    <SelectTrigger className="bg-gray-800 text-white border-2 border-[#CA9352] focus:ring-2 focus:ring-[#CA9352] hover:bg-[#CA9352]/10 rounded-lg">
+                      <SelectValue placeholder="Selecciona el tipo de coche" />
                     </SelectTrigger>
                   </FormControl>
-                  <SelectContent>
+                  <SelectContent className="bg-gray-800 border-2 border-[#CA9352] rounded-lg">
                     <SelectItem value="sedan">Sedán</SelectItem>
                     <SelectItem value="suv">SUV</SelectItem>
                     <SelectItem value="coupe">Coupé</SelectItem>
                     <SelectItem value="familiar">Familiar</SelectItem>
-                    <SelectItem value="luxe">De luxe</SelectItem>
+                    <SelectItem value="luxe">De lujo</SelectItem>
                   </SelectContent>
                 </Select>
                 <FormMessage />
@@ -206,13 +201,13 @@ export function FormEditCar(props: FormEditCarProps) {
             name="photo"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Car Image</FormLabel>
+                <FormLabel className="text-xl text-[#CA9352]">Imagen del coche</FormLabel>
                 <FormControl>
                   {photoUploaded ? (
-                    <p className="text-sm">Image uploaded!</p>
+                    <p className="text-sm text-[#CA9352]">¡Imagen subida!</p>
                   ) : (
                     <UploadButton
-                      className="rounded-lg bg-slate-600/20 text-slate-800 outline-dotted outline-3"
+                      className="rounded-lg bg-slate-600/20 text-slate-800 outline-dotted outline-3 hover:bg-[#CA9352] transition-all"
                       {...field}
                       endpoint="photo"
                       onClientUploadComplete={(res) => {
@@ -234,17 +229,26 @@ export function FormEditCar(props: FormEditCarProps) {
             name="priceDay"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Price per Day</FormLabel>
+                <FormLabel className="text-xl text-[#CA9352]">Precio por día</FormLabel>
                 <FormControl>
-                  <Input placeholder="20€" type="number" {...field} />
+                  <Input
+                    placeholder="20€"
+                    type="number"
+                    {...field}
+                    className="border-[#CA9352] bg-gray-900 text-white placeholder-[#CA9352] focus:ring-2 focus:ring-[#CA9352] rounded-lg"
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
         </div>
-        <Button type="submit" className="w-full mt-5" disabled={!isValid}>
-          Edit car
+        <Button
+          type="submit"
+          className="w-full mt-5 bg-[#CA9352] text-white hover:bg-[#9e7c3c] rounded-lg"
+          disabled={!form.formState.isValid}
+        >
+          Editar coche
         </Button>
       </form>
     </Form>

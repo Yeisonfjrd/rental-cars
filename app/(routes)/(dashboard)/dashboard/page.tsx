@@ -4,7 +4,7 @@ import { db } from "@/lib/db";
 import { ListCars } from "./components/ListCars";
 
 export default async function DashboardPage() {
-  const { userId } = await auth();
+  const { userId } = auth();
 
   if (!userId) {
     return redirect("/");
@@ -12,7 +12,7 @@ export default async function DashboardPage() {
 
   const cars = await db.car.findMany({
     where: {
-      isPublished: true,
+      isPublish: true,
     },
     orderBy: {
       createdAt: "desc",

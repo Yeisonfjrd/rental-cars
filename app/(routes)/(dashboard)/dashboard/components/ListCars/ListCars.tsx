@@ -1,10 +1,9 @@
 "use client";
 import { Car } from "@prisma/client";
-
 import { ListCarsProps } from "./ListCars.types";
 import Image from "next/image";
 import { Fuel, Gauge, Gem, Heart, Users, Wrench } from "lucide-react";
-import { ModalAddReservation } from "@/components/shared/ModalAddReservation";
+import { ModalAddReservation } from "@/components/Shared/ModalAddReservation";
 import { useLovedCars } from "@/hooks/use-loved-cars";
 
 export function ListCars(props: ListCarsProps) {
@@ -29,44 +28,44 @@ export function ListCars(props: ListCarsProps) {
         const likedCar = lovedItems.some((item) => item.id === car.id);
 
         return (
-          <div key={id} className="p-1 rounded-lg shadow-md hover:shadow-lg">
+          <div key={id} className="p-4 transition-all shadow-lg rounded-xl hover:shadow-2xl hover:scale-105">
             <Image
               src={photo}
               alt={name}
               width={400}
               height={600}
-              className="rounded-lg"
+              className="object-cover rounded-xl"
             />
-            <div className="p-3">
-              <div className="flex flex-col mb-3 gap-x-4">
-                <p className="text-xl min-h-16 lg:min-h-fit">{name}</p>
-                <p>{priceDay}€ /día</p>
+            <div className="p-4">
+              <div className="flex flex-col mb-4 gap-x-4">
+                <p className="text-2xl font-semibold text-[#CA9352]">{name}</p>
+                <p className="text-lg text-gray-500">{priceDay}€ /día</p>
               </div>
-              <p className="flex items-center">
-                <Gem className="h-4 w-4 mr-2" strokeWidth={1} />
+              <p className="flex items-center mb-2 text-sm text-gray-600">
+                <Gem className="w-4 h-4 mr-2" strokeWidth={1} />
                 {type}
               </p>
-              <p className="flex items-center">
-                <Wrench className="h-4 w-4 mr-2" strokeWidth={1} />
+              <p className="flex items-center mb-2 text-sm text-gray-600">
+                <Wrench className="w-4 h-4 mr-2" strokeWidth={1} />
                 {transmission}
               </p>
-              <p className="flex items-center">
-                <Users className="h-4 w-4 mr-2" strokeWidth={1} />
+              <p className="flex items-center mb-2 text-sm text-gray-600">
+                <Users className="w-4 h-4 mr-2" strokeWidth={1} />
                 {people}
               </p>
-              <p className="flex items-center">
-                <Fuel className="h-4 w-4 mr-2" strokeWidth={1} />
+              <p className="flex items-center mb-2 text-sm text-gray-600">
+                <Fuel className="w-4 h-4 mr-2" strokeWidth={1} />
                 {engine}
               </p>
-              <p className="flex items-center">
-                <Gauge className="h-4 w-4 mr-2" strokeWidth={1} />
+              <p className="flex items-center mb-4 text-sm text-gray-600">
+                <Gauge className="w-4 h-4 mr-2" strokeWidth={1} />
                 {cv} CV
               </p>
 
-              <div className="flex items-center justify-center gap-x-3">
+              <div className="flex items-center justify-center gap-x-4">
                 <ModalAddReservation car={car} />
                 <Heart
-                  className={`mt-2 cursor-pointer ${likedCar && "fill-black"}`}
+                  className={`mt-2 cursor-pointer transition-transform ${likedCar ? "fill-[#CA9352]" : "stroke-[#CA9352]"}`}
                   onClick={
                     likedCar
                       ? () => removeLovedItem(car.id)

@@ -1,3 +1,5 @@
-export interface FormAddCarProps {
-    setOpenDialog: (open: boolean) => void;
-} 
+import { Dispatch, SetStateAction } from "react";
+
+export type FormAddCarProps = {
+  setOpenDialog: Dispatch<SetStateAction<boolean>>;
+};

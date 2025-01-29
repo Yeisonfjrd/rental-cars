@@ -5,10 +5,17 @@ export function LogoDashboard() {
   return (
     <Link
       href="/"
-      className="flex items-center h-20 gap-2 border-b cursor-pointer min-h-20 px-6"
+      className="flex items-center h-20 gap-2 px-6 cursor-pointer"
     >
-      <Image src="/logo.svg" alt="Logo" width={30} height={30} priority />
-      <h1 className="text-xl font-bold">RoadEra</h1>
+      <Image
+        src="/logo.svg"
+        alt="Logo"
+        width={30}
+        height={30}
+        priority
+        className="object-cover"
+      />
+      <h1 className="text-xl font-bold text-[#CA9352]">RoadEra</h1>
     </Link>
   );
 }

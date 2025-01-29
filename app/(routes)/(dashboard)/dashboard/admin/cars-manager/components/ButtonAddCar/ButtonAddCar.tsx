@@ -1,34 +1,40 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import {
-    Dialog,
-    DialogContent,
-    DialogDescription,
-    DialogHeader,
-    DialogTitle,
-    DialogTrigger,
-  } from "@/components/ui/dialog"
-  import { PlusCircle } from "lucide-react";
-  import { useState } from "react";
-  import { FormAddCar } from "../FormAddCar/FormAddCar";
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { PlusCircle } from "lucide-react";
+import { useState } from "react";
+import { FormAddCar } from "../FormAddCar";
+
 export function ButtonAddCar() {
-    const [openDialog, setOpenDialog] = useState(false)
+  const [openDialog, setOpenDialog] = useState(false);
 
   return (
-    <Dialog open={openDialog} onOpenChange={setOpenDialog}>
-        <DialogTrigger asChild>
-            <Button variant="outline" onClick={() => setOpenDialog(true)}>
-                <PlusCircle />
-            </Button>
-        </DialogTrigger>
-        <DialogContent>
-            <DialogHeader>
-                <DialogTitle>Add Car</DialogTitle>
-            </DialogHeader>
-            <DialogDescription>
-                <FormAddCar setOpenDialog={setOpenDialog}/>
-            </DialogDescription>
-        </DialogContent>
+    <Dialog open={openDialog}>
+      <DialogTrigger asChild>
+        <Button
+          variant="outline"
+          onClick={() => setOpenDialog(true)}
+          className="text-[#CA9352] border-[#CA9352] hover:bg-[#CA9352] hover:text-white transition-all rounded-lg"
+        >
+          Agregar nuevo coche
+          <PlusCircle className="ml-2" />
+        </Button>
+      </DialogTrigger>
+      <DialogContent className="p-6 text-white bg-gray-800 rounded-lg">
+        <DialogHeader>
+          <DialogTitle className="text-2xl text-[#CA9352]">Añadir coche</DialogTitle>
+          <DialogDescription>
+            <FormAddCar setOpenDialog={setOpenDialog} />
+          </DialogDescription>
+        </DialogHeader>
+      </DialogContent>
     </Dialog>
   );
 }

@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -38,221 +39,223 @@ export function FormAddCar(props: FormAddCarProps) {
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: "",
-      cv: 0,
-      transmission: "manual",
-      people: 0,
-      photo: [],
-      engine: "gasoline",
-      type: "sedan",
-      priceDay: 0,
-      isPublished: false,
+      cv: "",
+      transmission: "",
+      people: "",
+      photo: "",
+      engine: "",
+      type: "",
+      priceDay: "",
+      isPublish: false,
     },
   });
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    console.log("Submitted values:", values);
     setOpenDialog(false);
     try {
       await axios.post(`/api/car`, values);
       toast({
-        title: "Car created ✅",
+        title: "Coche creado ✅",
       });
       router.refresh();
-    } catch (err) {
+    } catch (error) {
       toast({
         title: "Something went wrong",
-        description: err instanceof Error ? err.message : "Please try again later",
         variant: "destructive",
       });
     }
   };
 
+  const { isValid } = form.formState;
+
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-        <>
-          <FormField
-            control={form.control}
-            name="name"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Username</FormLabel>
-                <FormControl>
-                  <Input placeholder="Tesla Model S Plaid" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          
-          <FormField
-            control={form.control}
-            name="cv"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Power</FormLabel>
-                <FormControl>
-                  <Input placeholder="150 CV" type="number" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-  
-          {/* Componente Select mejorado */}
+        <div className="grid gap-6 lg:grid-cols-2">
+        <FormField
+        control={form.control}
+        name="name"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel className="text-xl text-[#CA9352]">Nombre del coche</FormLabel>
+            <FormControl>
+              <Input
+                placeholder="Tesla Model S Plaid"
+                {...field}
+                className="border-[#CA9352] bg-gray-900 text-white placeholder-[#CA9352] focus:ring-2 focus:ring-[#CA9352] rounded-lg"
+              />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+      <FormField
+        control={form.control}
+        name="cv"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel className="text-xl text-[#CA9352]">Potencia</FormLabel>
+            <FormControl>
+              <Input
+                placeholder="150 CV"
+                type="number"
+                {...field}
+                className="border-[#CA9352] bg-gray-900 text-white placeholder-[#CA9352] focus:ring-2 focus:ring-[#CA9352] rounded-lg"
+              />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
           <FormField
             control={form.control}
             name="transmission"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Transmission</FormLabel>
+                <FormLabel className="text-xl text-[#CA9352]">Transmisión</FormLabel>
                 <Select onValueChange={field.onChange} defaultValue={field.value}>
                   <FormControl>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select transmission type" />
+                    <SelectTrigger className="bg-gray-800 text-white border-2 border-[#CA9352] focus:ring-2 focus:ring-[#CA9352] hover:bg-[#CA9352]/10 rounded-lg">
+                      <SelectValue placeholder="Selecciona el tipo de transmisión" />
                     </SelectTrigger>
                   </FormControl>
-                  <SelectContent>
+                  <SelectContent className="bg-gray-800 border-2 border-[#CA9352] rounded-lg">
                     <SelectItem value="manual">Manual</SelectItem>
-                    <SelectItem value="automatic">Automatic</SelectItem>
+                    <SelectItem value="automatic">Automática</SelectItem>
                   </SelectContent>
                 </Select>
                 <FormMessage />
               </FormItem>
             )}
           />
-  
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <FormField
-              control={form.control}
-              name="people"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Passengers</FormLabel>
-                  <Select onValueChange={field.onChange} defaultValue={field.value.toString()}>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select passengers" />
+
+          <FormField
+            control={form.control}
+            name="people"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="text-xl text-[#CA9352]">Personas</FormLabel>
+                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                  <FormControl>
+                    <SelectTrigger className="bg-gray-800 text-white border-2 border-[#CA9352] focus:ring-2 focus:ring-[#CA9352] hover:bg-[#CA9352]/10 rounded-lg">
+                      <SelectValue placeholder="Selecciona la cantidad de personas" />
                     </SelectTrigger>
-                    <SelectContent>
-                      {[2, 3, 4, 5, 7].map(num => (
-                        <SelectItem key={num} value={num.toString()}>{num}</SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-  
-            <FormField
-              control={form.control}
-              name="engine"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Engine Type</FormLabel>
-                  <Select onValueChange={field.onChange} defaultValue={field.value}>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select engine" />
+                  </FormControl>
+                  <SelectContent className="bg-gray-800 border-2 border-[#CA9352] rounded-lg">
+                    <SelectItem value="2">2</SelectItem>
+                    <SelectItem value="4">4</SelectItem>
+                    <SelectItem value="5">5</SelectItem>
+                    <SelectItem value="7">7</SelectItem>
+                  </SelectContent>
+                </Select>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="engine"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="text-xl text-[#CA9352]">Motor</FormLabel>
+                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                  <FormControl>
+                    <SelectTrigger className="bg-gray-800 text-white border-2 border-[#CA9352] focus:ring-2 focus:ring-[#CA9352] hover:bg-[#CA9352]/10 rounded-lg">
+                      <SelectValue placeholder="Selecciona el motor del coche" />
                     </SelectTrigger>
-                    <SelectContent>
-                      {["gasoil", "electric", "hybrid", "diesel", "petrol"].map(type => (
-                        <SelectItem key={type} value={type}>
-                          {type.charAt(0).toUpperCase() + type.slice(1)}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </div>
-  
+                  </FormControl>
+                  <SelectContent className="bg-gray-800 border-2 border-[#CA9352] rounded-lg">
+                    <SelectItem value="gasoil">Gasolina</SelectItem>
+                    <SelectItem value="diesel">Diesel</SelectItem>
+                    <SelectItem value="electric">Eléctrico</SelectItem>
+                    <SelectItem value="hybrid">Híbrido</SelectItem>
+                  </SelectContent>
+                </Select>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
           <FormField
             control={form.control}
             name="type"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Vehicle Type</FormLabel>
+                <FormLabel className="text-xl text-[#CA9352]">Tipo</FormLabel>
                 <Select onValueChange={field.onChange} defaultValue={field.value}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select vehicle type" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {["sedan", "hatchback", "suv", "coupe", "convertible"].map(type => (
-                      <SelectItem key={type} value={type}>
-                        {type.charAt(0).toUpperCase() + type.slice(1)}
-                      </SelectItem>
-                    ))}
+                  <FormControl>
+                    <SelectTrigger className="bg-gray-800 text-white border-2 border-[#CA9352] focus:ring-2 focus:ring-[#CA9352] hover:bg-[#CA9352]/10 rounded-lg">
+                      <SelectValue placeholder="Selecciona el tipo de coche" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent className="bg-gray-800 border-2 border-[#CA9352] rounded-lg">
+                    <SelectItem value="sedan">Sedán</SelectItem>
+                    <SelectItem value="suv">SUV</SelectItem>
+                    <SelectItem value="coupe">Coupé</SelectItem>
+                    <SelectItem value="familiar">Familiar</SelectItem>
+                    <SelectItem value="luxe">De lujo</SelectItem>
                   </SelectContent>
                 </Select>
                 <FormMessage />
               </FormItem>
             )}
           />
-  
-          <FormField
-            control={form.control}
-            name="photo"
-            render={() => (
-              <FormItem>
-                <FormLabel>Car Image</FormLabel>
-                <FormControl>
-                  {photoUploaded ? (
-                    <p className="text-sm">Image uploaded!</p>
-                  ) : (
-                    <UploadButton
-                      className="rounded-lg bg-slate-600/20 text-slate-800 outline-dotted outline-3"
-                      endpoint="imageUploader"
-                      onClientUploadComplete={(res) => {
-                        if (res?.[0]?.url) {
-                          form.setValue("photo", [res[0].url]);
-                          setPhotoUploaded(true);
-                        } else {
-                          form.setValue("photo", []);
-                        }
-                      }}
-                      onUploadError={(error: Error) => {
-                        toast({
-                          title: "Upload failed",
-                          description: error.message,
-                          variant: "destructive",
-                        });
-                      }}
-                    />
-                  )}
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-  
-          <FormField
-            control={form.control}
-            name="priceDay"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Daily Price</FormLabel>
-                <FormControl>
-                  <Input 
-                    placeholder="Price per day" 
-                    type="number" 
-                    {...field} 
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </>
-  
+      <FormField 
+        control={form.control}
+        name="photo"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel className="text-xl text-[#CA9352]">Imagen del coche</FormLabel>
+            <FormControl>
+              {photoUploaded ? (
+                <p className="text-sm text-[#CA9352]">¡Imagen subida!</p>
+              ) : (
+                <UploadButton
+                  className="rounded-lg bg-slate-600/20 text-slate-800 outline-dotted outline-3 hover:bg-[#CA9352] transition-all"
+                  {...field}
+                  endpoint="photo"
+                  onClientUploadComplete={(res) => {
+                    form.setValue("photo", res?.[0].url);
+                    setPhotoUploaded(true);
+                  }}
+                  onUploadError={(error: Error) => {
+                    console.log(error);
+                  }}
+                />
+              )}
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+      <FormField
+        control={form.control}
+        name="priceDay"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel className="text-xl text-[#CA9352]">Precio por día</FormLabel>
+            <FormControl>
+              <Input
+                placeholder="20€"
+                type="number"
+                {...field}
+                className="border-[#CA9352] bg-gray-900 text-white placeholder-[#CA9352] focus:ring-2 focus:ring-[#CA9352] rounded-lg"
+              />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+        </div>
         <Button 
-          className="w-full bg-primary text-primary-foreground hover:bg-primary/90" 
-          type="submit"
-        >
-          Add Car
+          type="submit" 
+          className="w-full mt-5 bg-[#CA9352] text-white hover:bg-[#9e7c3c] rounded-lg"
+          disabled={!form.formState.isValid}
+        > 
+          Crear coche
         </Button>
       </form>
     </Form>
-  )
+  );
 }

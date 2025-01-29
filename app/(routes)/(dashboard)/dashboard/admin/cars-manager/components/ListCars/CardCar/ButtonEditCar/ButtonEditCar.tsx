@@ -6,7 +6,8 @@ import {
   DialogContent,
   DialogDescription,
   DialogHeader,
-  DialogTrigger,
+  DialogTitle,
+  DialogTrigger
 } from "@/components/ui/dialog";
 import { Pencil } from "lucide-react";
 import { useState } from "react";
@@ -19,13 +20,18 @@ export function ButtonEditCar(props: ButtonEditCarProps) {
   return (
     <Dialog open={openDialog}>
       <DialogTrigger asChild>
-        <Button variant="outline" onClick={() => setOpenDialog(true)}>
-          Edit
+        <Button
+          variant="outline"
+          onClick={() => setOpenDialog(true)}
+          className="text-[#CA9352] border-[#CA9352] hover:bg-[#CA9352] hover:text-white transition-all rounded-lg"
+        >
+          Editar
           <Pencil className="w-4 h-4 ml-2" />
         </Button>
       </DialogTrigger>
-      <DialogContent>
+      <DialogContent className="p-6 text-white bg-gray-800 rounded-lg">
         <DialogHeader>
+          <DialogTitle className="text-2xl text-[#CA9352]">Editar coche</DialogTitle>
           <DialogDescription>
             <FormEditCar setOpenDialog={setOpenDialog} carData={carData} />
           </DialogDescription>

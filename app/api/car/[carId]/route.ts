@@ -7,7 +7,7 @@ export async function PATCH(
   { params }: { params: { carId: string } }
 ) {
   try {
-    const { userId } = await auth();
+    const { userId } = auth();
     const { carId } = params;
     const { isPublish } = await req.json();
 
@@ -41,7 +41,7 @@ export async function DELETE(
   }
 ) {
   try {
-    const { userId } = await auth();
+    const { userId } = auth();
     const { carId } = params;
 
     if (!userId) {

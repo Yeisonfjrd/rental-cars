@@ -21,60 +21,73 @@ import { toast } from "@/components/ui/use-toast";
 
 export function ModalAddReservation(props: ModalAddReservationProps) {
   const { car } = props;
-  const [dateSelected, setDateSelected] = useState<{
-    from: Date | undefined;
-    to: Date | undefined;
-  }>({
+  const [isLoading, setIsLoading] = useState(false);
+  const [dateSelected, setDateSelected] = useState<DateRange>({
     from: new Date(),
     to: addDays(new Date(), 5),
   });
 
-  const onReserveCar = async (car: Car, dateSelected: DateRange) => {
-    const response = await axios.post("/api/checkout", {
-      carId: car.id,
-      priceDay: car.priceDay,
-      startDate: dateSelected.from,
-      endDate: dateSelected.to,
-      carName: car.name,
-    });
+  const onReserveCar = async () => {
+    try {
+      setIsLoading(true);
 
-    window.location = response.data.url;
-    toast({
-      title: "Coche reservado ✌🏽",
-    });
+      if (!dateSelected.from || !dateSelected.to) {
+        toast({
+          variant: "destructive",
+          title: "Error",
+          description: "Por favor selecciona las fechas",
+        });
+        return;
+      }
+
+      const response = await axios.post("/api/checkout", {
+        carId: car.id,
+        priceDay: car.priceDay,
+        startDate: dateSelected.from,
+        endDate: dateSelected.to,
+        carName: car.name,
+      });
+
+      // Redirigir a la página de checkout de Stripe
+      window.location.href = response.data.url;
+
+    } catch (error) {
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: "Hubo un error al procesar tu reserva",
+      });
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button
-          variant="outline"
-          className="w-full mt-3 text-[#8A6D3B] border-[#8A6D3B] hover:bg-[#8A6D3B] hover:text-white transition-all duration-200"
-        >
-          Reservar vehículo
-        </Button>
+        <Button>Reservar vehículo</Button>
       </AlertDialogTrigger>
-      <AlertDialogContent className="bg-[#F9F4E8] p-6 rounded-lg shadow-lg">
+      <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle className="text-[#8A6D3B] text-2xl font-semibold">
+          <AlertDialogTitle>Reservar vehículo</AlertDialogTitle>
+          <AlertDialogDescription>
             Selecciona las fechas en las que quieres alquilar el coche
-          </AlertDialogTitle>
-          <AlertDialogDescription className="text-[#555]">
-            <CalendarSelector
-              setDateSelected={setDateSelected}
-              carPriceDay={car.priceDay}
-            />
           </AlertDialogDescription>
         </AlertDialogHeader>
+        <div className="py-6">
+          <CalendarSelector
+            setDateSelected={setDateSelected}
+            carPriceDay={car.priceDay}
+          />
+        </div>
         <AlertDialogFooter>
-          <AlertDialogCancel className="text-[#D27A6F] hover:bg-[#D27A6F] hover:text-white transition-all duration-200">
-            Cancelar
-          </AlertDialogCancel>
+          <AlertDialogCancel>Cancelar</AlertDialogCancel>
           <AlertDialogAction
-            className="text-white bg-[#8A6D3B] hover:bg-[#6E4B2F] transition-all duration-200"
-            onClick={() => onReserveCar(car, dateSelected)}
+            onClick={onReserveCar}
+            disabled={isLoading}
           >
-            Reservar vehículo
+            {isLoading ? "Procesando..." : "Reservar vehículo"}
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>

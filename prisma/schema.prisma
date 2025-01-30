@@ -27,15 +27,14 @@ model Car {
   type         String   @db.Text
   isPublish    Boolean?
 
-  orders Order[]
+  orders Order[] @relation("CarToOrder")
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
 model Order {
-  id String @id @default(uuid())
-
+  id           String   @id @default(uuid())
   carId        String   @db.Text
   carName      String   @db.Text
   userId       String   @db.Text
@@ -44,7 +43,7 @@ model Order {
   status       String   @db.Text
   totalAmount  String   @db.Text
 
-  car Car @relation(fields: [carId], references: [id], onDelete: Cascade)
+  car Car @relation("CarToOrder", fields: [carId], references: [id], onDelete: Cascade)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

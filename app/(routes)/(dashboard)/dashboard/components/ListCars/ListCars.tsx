@@ -28,7 +28,7 @@ export function ListCars(props: ListCarsProps) {
         const likedCar = lovedItems.some((item) => item.id === car.id);
 
         return (
-          <div key={id} className="p-4 transition-all shadow-lg rounded-xl hover:shadow-2xl hover:scale-105">
+          <div key={id} className="p-4 transition-all shadow-lg rounded-xl hover:shadow-2xl">
             <Image
               src={photo}
               alt={name}
@@ -39,25 +39,25 @@ export function ListCars(props: ListCarsProps) {
             <div className="p-4">
               <div className="flex flex-col mb-4 gap-x-4">
                 <p className="text-2xl font-semibold text-[#CA9352]">{name}</p>
-                <p className="text-lg text-gray-500">{priceDay}€ /día</p>
+                <p className="text-lg ">{priceDay}€ /día</p>
               </div>
-              <p className="flex items-center mb-2 text-sm text-gray-600">
+              <p className="flex items-center mb-2 text-sm text-gray-300">
                 <Gem className="w-4 h-4 mr-2" strokeWidth={1} />
                 {type}
               </p>
-              <p className="flex items-center mb-2 text-sm text-gray-600">
+              <p className="flex items-center mb-2 text-sm text-gray-300">
                 <Wrench className="w-4 h-4 mr-2" strokeWidth={1} />
                 {transmission}
               </p>
-              <p className="flex items-center mb-2 text-sm text-gray-600">
+              <p className="flex items-center mb-2 text-sm text-gray-300">
                 <Users className="w-4 h-4 mr-2" strokeWidth={1} />
                 {people}
               </p>
-              <p className="flex items-center mb-2 text-sm text-gray-600">
+              <p className="flex items-center mb-2 text-sm text-gray-300">
                 <Fuel className="w-4 h-4 mr-2" strokeWidth={1} />
                 {engine}
               </p>
-              <p className="flex items-center mb-4 text-sm text-gray-600">
+              <p className="flex items-center mb-4 text-sm text-gray-300">
                 <Gauge className="w-4 h-4 mr-2" strokeWidth={1} />
                 {cv} CV
               </p>
